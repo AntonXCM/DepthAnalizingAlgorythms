@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Аналізатор глибини</title>
+</head>
+
+<body>
+  <input type="file" id="fileInput" accept="image/*">
+  <br>
+  <img id="img" alt="image" style="max-width: 100%;"><iframe src = "/properties"></iframe>
+  <h1 id="out">(r, g, b, a)</h1>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const img = document.getElementById('img');
+    const out = document.getElementById('out');
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      img.src = URL.createObjectURL(file);
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      fetch('/image', { method: 'POST', body: formData })
+        .catch(() => alert('Помилка'));
+    });
+
+    function send(px, py) {
+      fetch(`/color?x=${px}&y=${py}`)
+        .then(r => r.text())
+        .then(t => out.textContent = t)
+        .catch(_ => out.textContent = 'not found');
+    }
+
+    img.addEventListener('mousemove', e => {
+      const rect = img.getBoundingClientRect();
+      const nx = Math.floor((e.clientX - rect.left) * (img.naturalWidth / rect.width));
+      const ny = Math.floor((e.clientY - rect.top) * (img.naturalHeight / rect.height));
+      send(nx, ny);
+    });
+
+    img.addEventListener('mouseleave', () => out.textContent = '( , , , )');
+  </script>
+</body>
+
+</html>

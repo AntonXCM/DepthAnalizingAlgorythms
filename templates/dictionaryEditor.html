@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dict Editor</title>
+</head>
+
+<body>
+    <h3>Текущий словарь</h3>
+    <ul>
+        {% for k, v in dict.items() %}
+        <li>{{k}} : {{v}}</li>
+        {% endfor %}
+    </ul>
+    <form method="post" action="/properties/set">
+        <input name="key" placeholder="ключ" required>
+        <input name="value" placeholder="число" required type="number" step="any">
+        <button type="submit">Змінити</button>
+    </form>
+    <form method="post" action="/properties/delete">
+        <input name="key" placeholder="ключ" required>
+        <button type="submit">Видалити</button>
+    </form>
+</body>
+
+</html>
