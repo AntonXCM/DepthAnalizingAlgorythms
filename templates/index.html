@@ -11,7 +11,7 @@
   <input type="file" id="fileInput" accept="image/*">
   <br>
   <img id="img" alt="image" style="max-width: 100%;"><iframe src = "/properties"></iframe>
-  <h1 id="out">(r, g, b, a)</h1>
+  <h1 id="out">_</h1>
 
   <script>
     const fileInput = document.getElementById('fileInput');
@@ -44,7 +44,7 @@
       send(nx, ny);
     });
 
-    img.addEventListener('mouseleave', () => out.textContent = '( , , , )');
+    img.addEventListener('mouseleave', () => out.textContent = '_');
   </script>
 </body>
 
