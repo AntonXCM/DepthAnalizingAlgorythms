@@ -1,4 +1,4 @@
-import cv2, PIL, numpy
+import cv2, PIL
 from transformers import pipeline
 from Detector import DetectorBase
 
